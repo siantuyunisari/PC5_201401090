@@ -1,7 +1,6 @@
-# PC2_Tugas3_nim
-### Nama
-### PC 2
+# PC2_Tugas3_201401090
+# Yunisa Sianturi
+# PC 5
 
 
-###### Buatlah web seperti di modul3 dengan tambahan flip gabungan dan mirror y dan ubahlah tampilannya.
-> Screenshot tampilan dimasukkan dalam readme
+![PC5_Tugas3_201401090](https://user-images.githubusercontent.com/77237645/197342335-3efeae21-13c9-4658-aea3-f48e6f091bd0.png)
