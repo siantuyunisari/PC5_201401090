@@ -1,0 +1,947 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>  
+    <meta charset="UTF-8">
+    <title>Yunisa | UAS PC5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleuaspc.css">
+</head>
+
+<body>
+
+<!--bagian kiri yaitu menampilkan CANVAS IMAGE dan CANVAS HISTOGRAM-------------->
+<section class="container">
+<div class="left-half">
+    <h1>Tampilan Pengolahan Citra dan Histogram</h1>
+    <p>akan berubah sesuai dengan button yang dipilih</p>
+    <canvas id='canvas1'></canvas> <!--untuk image-->
+    <canvas id='canvas2'></canvas> <!--untuk histogram-->
+</div>
+</section>
+
+<!--bagian kanan yaitu SEMUA BUTTON-------------->
+<section class="container">
+<div class="right-half">
+    <h1>Silahkan coba beberapa proses pengolahan citra</h1>
+    <p>dengan menekan beberapa button dibawah ini</p>
+    <br><br><br>
+
+<!--MODUL 1: READ, ORIGINAL dan HISTOGRAM-------------->
+    <!--buttons READ, ORI, HISTOGRAM-------------->
+        <button id='read'>READ IMAGE</button>&nbsp
+        <button id='ori'>ORIGINAL IMAGE</button>&nbsp
+        <button id='hist1'>HISTOGRAM</button>&nbsp
+        <br><br>
+
+    <!--bar RGBA-------------->
+    R <input type='range' min='-255' max='255' data-id='1' id='ch1'>
+    <input type='text' id='chv1' size='3' disabled value='0'><br><br>
+    G <input type='range' min='-255' max='255' data-id='2' id='ch2'>
+    <input type='text' id='chv2' size='3' disabled value='0'><br><br>
+    B <input type='range' min='-255' max='255' data-id='3' id='ch3'>
+    <input type='text' id='chv3' size='3' disabled value='0'><br><br>
+    A <input type='range' min='0' max='255' data-id='4' id='ch4' value='255'>
+    <input type='text' id='chv4' size='3' disabled value='255'> <br><br>
+    <button id='default'>Default RGBA</button><br><br>
+
+    <hr><br>
+    <select id='histval'>
+        <option value='0'>Red</option>
+        <option value='1'>Green</option>
+        <option value='2'>Blue</option>
+    </select>&nbsp&nbsp&nbsp&nbsp
+
+<!--MODUL 2-------------->
+    <!--bagian NEGATIF dan GREYSCALE-------------->
+    <button id='negatif'>Negatif</button>&nbsp&nbsp&nbsp&nbsp
+    <button id='grayscl'>Grayscale</button>
+    <br><br>
+
+    <!--bagian BRIGHTNESS-------------->
+    Brightness <input type='range' min='-255' max='255' data-id='4' id='brightness' value='0'>&nbsp
+        <input type='text' id='brightness_val' size='3' disabled value='0'>&nbsp
+        <button id='brdefault'>Reset</button><br><br>
+
+    <!--bagian THRESHOLD-------------->
+    Threshold &nbsp <input type='range' min='0' max='255' id='threshold' value='0'>&nbsp
+        <input type='text' id='threshold_val' size='3' disabled value='0'>&nbsp
+        <button id='thdefault'>Reset</button><br><br>
+
+<!--MODUL 3-------------->
+    <hr><br>
+    <!--bagian FLIPPING dan MIRRORING-------------->
+    <button id='flip1'>Horizontal</button>&nbsp
+    <button id='flip2'>Vertikal</button>&nbsp
+    <button id='flip3'>Flip Gabungan</button>&nbsp
+    <button id='mirror1'>Mirror</button>&nbsp
+    <button id='mirror'>V Mirror</button>
+    <br><br>
+
+<!--UTS-------------->
+    <hr><br>
+    <button id='buttonsatu'>BUTTON 1 - Setengah Negatif</button>&nbsp
+    <button id='buttondua'>BUTTON 2 - Setengah Flip</button>&nbsp
+    <button id='buttontiga'>BUTTON 3 - RGB</button>
+    <br><br>
+
+<!--MODUL 4-------------->
+    <!--input dan button untuk MEAN dan MEDIAN-------------->
+    <hr><br>
+    <input type="number" id="num" placeholder="Filter Size">&nbsp
+    <button id='buttonmean' type='button'>Mean Filtering</button>&nbsp
+    <button id='buttonmedian' type='button'>Median Filtering</button>
+    <br><br>
+
+<!--MODUL 5-------------->
+    <!--button untuk SOBEL dan PREWITT-------------->
+    <hr><br>
+    <button id='sobel'>SOBEL</button>&nbsp
+    <button id='prewitt'>PREWITT</button>&nbsp
+    <button id='sobeldua'>SOBEL 2</button>
+    <br><br>
+
+<!--MODUL 6-------------->
+    <!--button untuk ROBERT dan LAPLACIAN-------------->
+    <hr><br>
+    <button id='rob'>ROBERT</button>&nbsp
+    <button id='lap'>LAPLACIAN</button>
+    <br><br>
+
+<!--MODUL 7-------------->
+    <!--input untuk ROTATE-------------->
+    <hr><br>
+    Rotasi : <input type="text" id="rotate_val" size="3" disabled value="0">&#176
+     <input type="range" min="0" max="360" id="rotate" value="0"><br><br>
+
+    Translasi X : <input type="range" min="0" max="100" id="transx" value="0">
+     <input type="text" id="transx_val" size="3" disabled value="0"><br><br>
+
+    Translasi Y : <input type="range" min="0" max="100" id="transy" value="0">
+     <input type="text" id="transy_val" size="3" disabled value="0">
+    <br><br>
+
+<!--MODUL 8-------------->
+    <!--input untuk SCALING-------------->
+    <hr><br>
+    Scale: <input type="range" min="1" max="10" id="scale" value="1" step="0.1"><br><br>   
+
+ <!--UAS-------------->
+    <hr><br>
+    <button id='uas'>UAS - 4 Grid</button>
+    <br><br>
+
+</div>
+</section> 
+
+</body>
+
+<!--Script-------------->
+<script src='pc.js'></script>
+<script> 
+    var canvas = document.getElementById('canvas1')
+    var obj = new pc(canvas)
+    obj.image2canvas("foto.jpg")
+
+    var canvas2 = document.getElementById('canvas2')
+    var obj2 = new pc(canvas2)
+    obj2.blank2canvas(200,200)
+
+    var tes = new Array()
+    document.getElementById('read').addEventListener('click',function(){
+        tes = obj.image2read()
+    })
+
+    document.getElementById('ori').addEventListener('click', function(){
+        obj.image2original()
+    })
+
+    function rgbachange(){
+        tesbackup= new Array() 
+        for(var c=0; c<tes.length; c++){
+            temp = new Array()
+            for(var d=0; d<4; d++){ 
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        for(var j=0; j<tesbackup.length; j++){
+            tesbackup[j][0] += parseInt(document.getElementById('ch1').value)
+            tesbackup[j][1] += parseInt(document.getElementById('ch2').value) 
+            tesbackup[j][2] += parseInt(document.getElementById('ch3').value)
+            tesbackup[j][3] = parseInt(document.getElementById('ch4').value)
+        } 
+        for(var i=1; i<=4;i++) document.getElementById('chv'+i).value = document.getElementById('ch'+i).value
+        obj.array2canvas(tesbackup)
+    }
+
+    for(var i=1; i<=4;i++){
+        document.getElementById('ch'+i).addEventListener('input', function(){
+            rgbachange()
+        })
+    }
+
+    document.getElementById('default').addEventListener('click',function(){
+        for(var i=1; i<=3;i++){
+            document.getElementById('ch1').value = 0
+            document.getElementById('ch2').value = 0
+            document.getElementById('ch3').value = 0
+        }
+        document.getElementById('ch4').value = 255
+        rgbachange()
+    })
+
+    document.getElementById('hist1').addEventListener('click',function(){
+	var hist = obj.hist2read([parseInt(document.getElementById("histval").value)]) //Call [R,G,B,A] as [0,1,2,3], can input more than 1 but only [0..3] parameter only
+	obj2.hist2canvas(hist[0],10)
+    })
+
+//script NEGATIF--------------> 
+    document.getElementById('negatif').addEventListener('click',function(){
+        tesbackup = new Array()
+        for(var c=0;c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+        }
+        tesbackup.push(temp)
+    }
+
+    for(var i=0;i<tesbackup.length;i++){
+        tes[i][0] = (255-tesbackup[i][0])
+        tes[i][1] = (255-tesbackup[i][1])
+        tes[i][2] = (255-tesbackup[i][2])
+        tes[i][3] = tesbackup[i][3]
+    }
+    obj.array2canvas(tes)
+    })
+
+//script GRAYSCALE--------------> 
+    document.getElementById('grayscl').addEventListener('click',function(){
+
+        tesbackup = new Array()
+        for(var c=0;c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        for(var i=0;i<tesbackup.length;i++){
+            var total = Math.floor((tesbackup[i][0] + tesbackup[i][1] + tesbackup[i][2])/3)
+            tes[i][0] = total
+            tes[i][1] = total
+            tes[i][2] = total
+            tes[i][3] = tesbackup[i][3]
+        }
+        obj.array2canvas(tes)
+    })
+
+//script THRESHOLD-------------->
+    document.getElementById('threshold').addEventListener('input',function(){
+	    document.getElementById('threshold_val').value=this.value
+	    batas = parseInt(this.value)
+
+	    tesbackup = new Array()
+	    for(var c=0;c<tes.length;c++){
+		temp = new Array()
+		for(var d=0;d<4;d++){
+			temp.push(tes[c][d])
+		}
+		tesbackup.push(temp)
+	    }
+
+	    for(var i=0;i<tes.length;i++){
+		    gabung = Math.floor((tesbackup[i][0] + tesbackup[i][1] + tesbackup[i][2])/3)
+		    if(gabung<batas){
+			    gabung = 0
+		    }
+		    else{
+			    gabung = 255
+            }
+            tes[i][0] = gabung
+            tes[i][1] = gabung
+            tes[i][2] = gabung
+            tes[i][3] = tes[i][3]
+        }
+        obj.array2canvas(tesbackup)
+    })
+
+//script BRIGHTNESS-------------->
+    document.getElementById('brightness').addEventListener('input',function(){
+	    document.getElementById('brightness_val').value=this.value
+	    p = parseInt(this.value)
+
+	    tesbackup = new Array()
+	    for(var c=0;c<tes.length;c++){
+		    temp = new Array()
+		    for(var d=0;d<4;d++){
+			    temp.push(tes[c][d])
+		    }
+            tesbackup.push(temp)
+	    }
+	
+        for(var i=0;i<tes.length;i++){
+            tes[i][0] = (tes[i][0]+p)
+            tes[i][1] = (tes[i][1]+p)
+            tes[i][2] = (tes[i][2]+p)
+            tes[i][3] = tes[i][3]
+        }
+        obj.array2canvas(tes)
+    })
+
+    document.getElementById('thdefault').addEventListener('click', function(){
+        document.getElementById('threshold').value = 0
+        document.getElementById('threshold_val').value = 0
+        rgbachange()
+    })
+
+    document.getElementById('brdefault').addEventListener('click', function(){
+        document.getElementById('brightness').value = 0
+        document.getElementById('brightness_val').value = 0
+        rgbachange()
+    })
+
+//script FLIP HORIZONTAL-------------->
+    document.getElementById('flip1').addEventListener('click',function(){
+        tesbackup = new Array();
+        for(var c=0; c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        for (var i=0;i<tesbackup.length;i++){
+            x=obj.i2x(i)
+            y=obj.i2y(i)
+            posnow = obj.xy2i(obj.width-1-x,y)
+            tes[i][0]=tesbackup[posnow][0]
+            tes[i][1]=tesbackup[posnow][1]
+            tes[i][2]=tesbackup[posnow][2]
+            tes[i][3]=tesbackup[posnow][3]
+        }
+        obj.array2canvas(tes)
+    })
+
+//script FLIP VERTIKAL-------------->
+    document.getElementById('flip2').addEventListener('click',function(){
+        tesbackup = new Array();
+        for(var c=0; c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        for (var i=0;i<tesbackup.length;i++){
+            x=obj.i2x(i)
+            y=obj.i2y(i)
+            posnow = obj.xy2i(x,obj.height-1-y)
+            tes[i][0]=tesbackup[posnow][0]
+            tes[i][1]=tesbackup[posnow][1]
+            tes[i][2]=tesbackup[posnow][2]
+            tes[i][3]=tesbackup[posnow][3]
+        }
+        obj.array2canvas(tes)
+    })
+
+//script FLIP GABUNGAN-------------->
+    document.getElementById('flip3').addEventListener('click',function(){
+        tesbackup = new Array()
+        for(var c=0;c<tes.length;c++){
+        temp = new Array()
+        for(var d=0;d<4;d++){
+        temp.push(tes[c][d])
+        }
+        tesbackup.push(temp)
+        }
+
+        for (var i=0;i<tesbackup.length;i++){
+        x=obj.i2x(i)
+        y=obj.i2y(i)
+        posnow = obj.xy2i(obj.width-1-x,obj.height-1-y)
+        tes[i][0]=tesbackup[posnow][0]
+        tes[i][1]=tesbackup[posnow][1]
+        tes[i][2]=tesbackup[posnow][2]
+        tes[i][3]=tesbackup[posnow][3]
+        }
+        obj.array2canvas(tes)
+        })
+
+//script MIRROR-------------->
+    document.getElementById('mirror1').addEventListener('click',function(){
+        tesbackup = new Array();
+        for(var c=0; c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+ 
+        var wnow=obj.width
+        for (var i=0;i<tesbackup.length;i++){
+            x=obj.i2x(i)
+            y=obj.i2y(i)
+            if(x<wnow/2){
+            posnow = obj.xy2i(wnow-1-x,y)
+            tes[i][0]=tesbackup[posnow][0]
+            tes[i][1]=tesbackup[posnow][1]
+            tes[i][2]=tesbackup[posnow][2]
+            tes[i][3]=tesbackup[posnow][3]
+            }
+        }
+        obj.array2canvas(tes)
+    })
+
+//script V MIRROR-------------->
+    document.getElementById('mirror').addEventListener('click',function(){
+        tesbackup = new Array();
+        for(var c=0; c<tes.length;c++){
+            temp = new Array()
+            for(var d=0;d<4;d++){
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+        var hnow=obj.height
+        for (var i=0;i<tesbackup.length;i++){
+            x=obj.i2x(i)
+            y=obj.i2y(i)
+            if(y<hnow/2){
+            posnow = obj.xy2i(x,hnow-y-1)
+            tes[i][0]=tesbackup[posnow][0]
+            tes[i][1]=tesbackup[posnow][1]
+            tes[i][2]=tesbackup[posnow][2]
+            tes[i][3]=tesbackup[posnow][3]
+            }
+        }
+        obj.array2canvas(tes)
+    })
+
+//UTS ** BUTTON 1: SETENGAH NEGATIF-------------->
+    document.getElementById('buttonsatu').addEventListener('click', function () {
+        tesbackup = new Array()
+        for (var c = 0; c < tes.length; c++) {
+            temp = new Array()
+            for (var d = 0; d < 4; d++) {
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        var wnow = obj.width
+        for (var i = 0; i < tesbackup.length; i++) {
+            x = obj.i2x(i)
+            y = obj.i2y(i)
+            if (x > wnow / 2) {
+                posnow = obj.xy2i(wnow-x-1,y)
+                tes[i][0] = (255 - tesbackup[i][0])
+                tes[i][1] = (255 - tesbackup[i][1])
+                tes[i][2] = (255 - tesbackup[i][2])
+                tes[i][3] = tesbackup[i][3]
+            }
+        }
+        obj.array2canvas(tes)
+    })
+
+//UTS ** BUTTON 2: SETENGAH FLIP-------------->
+    document.getElementById('buttondua').addEventListener('click', function () {
+        tesbackup = new Array()
+        for (var c = 0; c < tes.length; c++) {
+            temp = new Array()
+            for (var d =0; d<4; d++) {
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+
+        var hnow = obj.height
+        for (var i = 0; i < tesbackup.length; i++) {
+            x = obj.i2x(i)
+            y = obj.i2y(i)
+            if (x > hnow / 2) {
+                posnow = obj.xy2i(x, hnow -y -1)
+                tes[i][0] = tesbackup[posnow][0]
+                tes[i][1] = tesbackup[posnow][1]
+                tes[i][2] = tesbackup[posnow][2]
+                tes[i][3] = tesbackup[posnow][3]
+            }
+            if (x < hnow / 2) {
+                posnow = obj.xy2i(obj.width -1 -x, y)
+                tes[i][0] = tesbackup[posnow][0]
+                tes[i][1] = tesbackup[posnow][1]
+                tes[i][2] = tesbackup[posnow][2]
+                tes[i][3] = tesbackup[posnow][3]
+
+            }
+        }
+        obj.array2canvas(tes)
+    })
+
+//UTS ** BUTTON 3: RGB-------------->
+    document.getElementById('buttontiga').addEventListener('click', function () {
+        tesbackup = new Array()
+        for (var c = 0; c < tes.length; c++) {
+            temp = new Array()
+            for (var d = 0; d < 4; d++) {
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+        
+        var wnow = obj.width
+        for (var i = 0; i < tesbackup.length; i++) {
+            x = obj.i2x(i)
+            y = obj.i2y(i)
+
+            //red
+            if (x < wnow/3) {
+                posnow = obj.xy2i(wnow-x-1,y)
+                tes[i][0] = (255 + tesbackup[i][0])
+                tes[i][1] = (tesbackup[i][1])
+                tes[i][2] = (tesbackup[i][2])
+                tes[i][3] = tesbackup[i][3]
+            }
+
+            //green
+            if ((x > wnow/3) && (x<2*wnow/3)) {
+                posnow < obj.xy2i(wnow-x-1,y)
+                tes[i][0] = (tesbackup[i][0])
+                tes[i][1] = (255+tesbackup[i][1])
+                tes[i][2] = (tesbackup[i][2])
+                tes[i][3] = tesbackup[i][3]
+            }
+
+            //blue
+            if (x > 2*wnow/3) {
+                posnow < obj.xy2i(wnow-x-1,y)
+                tes[i][0] = (tesbackup[i][0])
+                tes[i][1] = (tesbackup[i][1])
+                tes[i][2] = (255+tesbackup[i][2])
+                tes[i][3] = tesbackup[i][3]
+            }
+
+        
+        }
+        obj.array2canvas(tes)
+    })
+
+//script MEAN-------------->
+    document.getElementById('buttonmean').addEventListener('click',function(){
+                filtersize=parseInt(document.getElementById('num').value)
+                if(filtersize%2==0|| filtersize<3){
+                    warning('FilterSize must Odd Number and >=3')
+                    return false
+                }
+                borderparam=(filtersize-1)/2
+                meandoubleparam=filtersize*filtersize
+                tesbackup=new Array()
+                for(var c=0; c<tes.length; c++){
+                    temp=new Array()
+                    for(var d=0; d<4; d++){
+                        temp.push(tes[c][d])
+                    }
+                    tesbackup.push(temp)
+                }
+                for(var i=0; i<tes.length; i++){
+                    xstart=obj.i2x(i) - borderparam
+                    xend=obj.i2x(i) + borderparam
+                    ystart=obj.i2y(i) - borderparam
+                    yend=obj.i2y(i) + borderparam
+                    red=0
+                    green=0
+                    blue=0
+                    for(var yc=ystart; yc<=yend; yc++){
+                        for(var xc=xstart; xc<=xend; xc++){
+                            if(yc>=0 && xc>=0 && xc<obj.width && yc<obj.height){
+                                red+=tesbackup[obj.xy2i(xc,yc)][0]
+                                green+=tesbackup[obj.xy2i(xc,yc)][1]
+                                blue+=tesbackup[obj.xy2i(xc,yc)][2]
+                            }
+                        }
+                    }
+                    tes[i][0]=Math.floor(red/meandoubleparam)
+                    tes[i][1]=Math.floor(green/meandoubleparam)
+                    tes[i][2]=Math.floor(blue/meandoubleparam)
+                }
+                obj.array2canvas(tes)
+            })
+
+//script MEDIAN-------------->
+     document.getElementById('buttonmedian').addEventListener('click',function(){
+                filtersize=parseInt(document.getElementById('num').value)
+                if(filtersize%2==0|| filtersize<3){
+                    console.warn("FilterSize must Odd Number and >=3!")
+                    return false
+                }
+                borderparam=(filtersize-1)/2
+                tesbackup=new Array()
+                for(var c=0; c<tes.length; c++){
+                    temp=new Array()
+                    for(var d=0; d<4; d++){
+                        temp.push(tes[c][d])
+                    }
+                    tesbackup.push(temp)
+                }
+                for(var i=0; i<tes.length; i++){
+                    xstart=obj.i2x(i) - borderparam
+                    xend=obj.i2x(i) + borderparam
+                    ystart=obj.i2y(i) - borderparam
+                    yend=obj.i2y(i) + borderparam
+                    red=new Array()
+                    green=new Array()
+                    blue=new Array()
+                    count=0
+                    for(var yc=ystart; yc<=yend; yc++){
+                        for(var xc=xstart; xc<=xend; xc++){
+                            if(yc>=0 && xc>=0 && xc<obj.width && yc<obj.height){
+                                red.push(tesbackup[obj.xy2i(xc,yc)][0])
+                                green.push(tesbackup[obj.xy2i(xc,yc)][1])
+                                blue.push(tesbackup[obj.xy2i(xc,yc)][2])
+                            }
+                            count++
+                        }
+                    }
+                    red=arraysort(red)
+                    green=arraysort(green)
+                    blue=arraysort(blue)
+                    if(count%2==0){
+                        param=count/2
+                    }
+                    else{
+                        param=(count-1)/2
+                    }
+                    tes[i][0]=red[param]
+                    tes[i][1]=green[param]
+                    tes[i][2]=blue[param]
+                }
+                obj.array2canvas(tes)
+            })
+
+//script SOBEL-------------->
+    document.getElementById('sobel').addEventListener('click',function(){
+                var Gxtemp = new Array(4)
+                var Gytemp = new Array(4)
+                var G = new Array()
+                var xpos = 0;
+                var ypos = 0;
+                function cek(x,y,n) {
+                    if (y>=0 && x>=0 && x<obj.width && y<obj.height) return parseInt(tes[obj.xy2i(x,y)])
+                    else return 0
+                }
+                for(var i=0; i<tes.length; i++){
+                    var Gtemp = new Array(4) 
+                    xpos = obj.i2x(i)
+                    ypos = obj.i2y(i)
+                    for(var j=0; j<3; j++){
+                        Gxtemp[j] = (cek(xpos-1, ypos-1)*-1) + (cek(xpos-1, ypos)*-2) + (cek(xpos-1, ypos+1)*-1) + (cek(xpos+1, ypos-1)) + (cek(xpos+1, ypos)*2) + (cek(xpos+1, ypos+1))
+                        Gytemp[j] = (cek(xpos-1, ypos-1)*-1) + (cek(xpos, ypos-1)*-2) + (cek(xpos+1, ypos-1)*-1) + (cek(xpos-1, ypos+1)) + (cek(xpos, ypos+1)*2) + (cek(xpos+1, ypos+1))
+                        Gtemp[j] = Math.floor(Math.sqrt((parseInt(Gxtemp[j])*parseInt(Gxtemp[j])) + (parseInt(Gytemp[j])*parseInt(Gytemp[j]))))
+                }
+                    Gtemp[3] = tes[i][3]
+                    G.push(Gtemp)
+            }
+                obj.array2canvas(G)
+            })
+
+//script PREWITT-------------->
+    document.getElementById('prewitt').addEventListener('click',function(){
+        var Gxtemp = new Array(4)
+                    var Gytemp = new Array(4)
+                    var G = new Array()
+                    var xpos = 0;
+                    var ypos = 0;
+                    function cek(x,y,n){
+                        if(y>=0 && x>=0 && x<obj.width && y<obj.height) return parseInt(tes[obj.xy2i(x,y)])
+                        else return 0
+                    }
+                    for(var i=0;i<tes.length;i++){
+                        var Gtemp = new Array(4)
+                        xpos = obj.i2x(i)
+                        ypos = obj.i2y(i)
+                        for(var j =0;j<3;j++){
+                            Gxtemp[j] = (cek(xpos-1,ypos-1)-1)+(cek(xpos-1,ypos)-1)+(cek(xpos-1,ypos+1)*-1)+(cek(xpos+1,ypos-1))+(cek(xpos+1,ypos))+(cek(xpos+1,ypos+1))
+                            Gytemp[j] = (cek(xpos-1,ypos-1)-1)+(cek(xpos,ypos-1)-1)+(cek(xpos+1,ypos-1)*-1)+(cek(xpos-1,ypos+1))+(cek(xpos,ypos+1))+(cek(xpos+1,ypos+1))
+                            Gtemp[j] = Math.floor(Math.sqrt((parseInt(Gxtemp[j])*parseInt(Gxtemp[j]))+(parseInt(Gytemp[j])*parseInt(Gytemp[j]))))
+                        }
+                        Gtemp[3] = tes[i][3]
+                        G.push(Gtemp)
+                    }
+                    
+                    obj.array2canvas(G)
+                })
+
+//script SOBEL YANG EFEKTIF--------------> BELUM SELESAIIII
+    document.getElementById('sobeldua').addEventListener('click',function(){
+
+    })
+
+//script ROBERT-------------->
+    document.getElementById('rob').addEventListener('click',function(){
+        var Gxtemp = new Array(4)
+        var Gytemp = new Array(4)
+        var G = new Array()
+        var xpos = 0;
+        var ypos = 0;
+
+        function cek(x,y,n){
+            if(y>=0 && x>=0 && x<obj.width && y<obj.height) return parseInt(tes[obj.xy2i(x,y)])
+            else return 0
+            }
+                for(var i=0;i<tes.length;i++){
+                    var Gtemp = new Array(4)
+                    xpos = obj.i2x(i)
+                    ypos = obj.i2y(i)
+                
+                    Gxtemp[0] = (cek(xpos,ypos)*-1) + (cek(xpos+1,ypos+1))
+                    Gytemp[0] = (cek(xpos+1,ypos)*-1) + (cek(xpos,ypos+1))
+                         
+                    Gtemp[0] = Math.floor(Math.sqrt((parseInt(Gxtemp[0])*parseInt(Gxtemp[0]))+(parseInt(Gytemp[0])*parseInt(Gytemp[0]))))
+                    Gtemp[1] = Gtemp[0]
+                    Gtemp[2] = Gtemp[0]
+                    Gtemp[3] = tes[i][3]
+                    G.push(Gtemp)
+                    }
+                    obj.array2canvas(G)
+                })
+
+//script LAPLACIAN-------------->
+    document.getElementById('lap').addEventListener('click',function(){
+        tesbackup= new Array() 
+        for(var c=0; c<tes.length; c++){
+            temp = new Array()
+            for(var d=0; d<4; d++){ 
+                temp.push(tes[c][d])
+            }
+            tesbackup.push(temp)
+        }
+            var xpos = 0;
+            var ypos = 0;
+            function cek(x,y,n){
+                if(y>=0 && x>=0 && x<obj.width && y<obj.height) return parseInt(tesbackup[obj.xy2i(x,y)])
+                else return 0
+            }
+            for(var i=0;i<tes.length;i++){
+                var Gtemp = new Array(4)
+                xpos = obj.i2x(i)
+                ypos = obj.i2y(i) 
+                for (var j=0; j<3; j++){
+                    tes[i][j] = (cek(xpos, ypos-1)*-1) + (cek(xpos-1, ypos)*-1) + (cek(xpos, ypos)*4) + (cek(xpos+1, ypos)*-1) + (cek(xpos, ypos+1)*-1)
+                }
+            }
+            obj.array2canvas(tes)
+    })
+
+//script ROTATE-------------->
+    document.getElementById('rotate').addEventListener('input',function(){
+	    angle=parseInt(this.value)
+	    document.getElementById('rotate_val').value=angle
+	
+	    var tesbackup = new Array()
+	    for(var c=0;c<tes.length;c++){
+		    temp = new Array()
+		    for(var d=0;d<4;d++){
+			    temp.push(tes[c][d])
+		    }
+		    tesbackup.push(temp)
+	    }
+	    var pusatx = obj.width/2
+	    var pusaty = obj.height/2
+	    var toRadians = function(x){
+		    return x * (Math.PI/180); //teta
+	    }
+	    
+        //rotate
+	    for(var i=0;i<tesbackup.length;i++){
+		    var x = obj.i2x(i) - pusatx
+		    var y = obj.i2y(i) - pusaty
+
+		    var teta = toRadians(angle)
+		    var xnow = Math.floor((x*Math.cos(teta)) - (y*Math.sin(teta))) + pusatx // -pusatx
+		    var ynow = Math.floor((x*Math.sin(teta)) + (y*Math.cos(teta))) + pusaty
+		    var posnow = obj.xy2i(xnow,ynow)
+
+		    if(posnow>=0 && posnow<tesbackup.length && (xnow >= 0 && xnow < obj.width) && (ynow>=0 && ynow<obj.height)){
+			    tesbackup[i][0] = tes[posnow][0]
+			    tesbackup[i][1] = tes[posnow][1]
+			    tesbackup[i][2] = tes[posnow][2]
+			    tesbackup[i][3] = tes[posnow][3]
+		    }
+		    else{
+			    tesbackup[i][3] = 0
+		    }
+	    }
+	    obj.array2canvas(tesbackup)
+    })
+
+//script TRANSLASI-------------->
+    function translate(){
+	var txval = parseInt(document.getElementById('transx').value)
+	var tyval = parseInt(document.getElementById('transy').value)
+	var pixels = new Array(tes.length)
+	for(var j=0;j<pixels.length;j++){
+		pixels[j]=[0,0,0,0]
+	}
+	for(var i=0;i<tes.length;i++){
+		var x = obj.i2x(i)
+		var y = obj.i2y(i)
+		var xnow = x + txval
+		var ynow = y + tyval
+		var posnow = obj.xy2i(xnow,ynow)
+		if(posnow>=0 &&posnow < pixels.length && ( xnow >=0 && xnow<obj.width) && (ynow>=0 && ynow <obj.height)){
+			pixels[posnow][0] = tes[i][0]
+			pixels[posnow][1] = tes[i][1]
+			pixels[posnow][2] = tes[i][2]
+			pixels[posnow][3] = tes[i][3]
+		}
+	}
+	obj.array2canvas(pixels)
+    }
+
+    document.getElementById('transx').addEventListener('input',function(){
+	    xt=parseInt(this.value)
+	    document.getElementById('transx_val').value=xt
+	    translate()
+    })
+
+    document.getElementById('transy').addEventListener('input',function(){
+	    xt=parseInt(this.value)
+	    document.getElementById('transy_val').value=xt
+	    translate()
+    })
+
+    document.getElementById('default').addEventListener('input',function(){
+	document.getElementById('angle').value=0
+	document.getElementById('rotate').value=0
+	document.getElementById('transx').value=0
+	document.getElementById('transy').value=0
+	translate()
+    })
+    
+//script SCALING-------------->
+    document.getElementById('scale').addEventListener('input',function(){ 
+	    var scaleval = this.value
+	    var xpos = 0
+	    var ypos = 0
+	    var xnow = 0
+	    var ynow = 0
+	    var objW = obj.width
+	    var objH = obj.height
+	
+	    tesbackup = new Array()
+	    for(var c=0; c<tes.length; c++){ 
+		    temp = new Array() 
+		    for(var d=0; d<4; d++){
+			    temp.push(255)
+		    }
+		    tesbackup.push(temp)
+		    }
+	
+	    for(var i=0; i<tes.length; i++){ 
+		    xpos = obj.i2x(i) 
+		    ypos = obj.i2y(i)
+		    xnow = Math.round( (xpos-1)*(objW-1)/(scaleval*objW-1)+1 )
+		    ynow = Math.round( (ypos-1)*(objH-1)/(scaleval*objH-1)+1 )
+		    var posnow = obj.xy2i(xnow,ynow)
+		    if(posnow >= 0 && posnow < tesbackup.length && (xnow>=0 && xnow<obj.width) && (ynow>=0 && ynow<obj.height)){
+			    tesbackup[i][0] = tes[posnow][0]
+			    tesbackup[i][1] = tes[posnow][1]
+			    tesbackup[i][2] = tes[posnow][2]
+		        }
+	        }
+	    obj.array2canvas(tesbackup)
+    })
+
+    document.getElementById('default').addEventListener('click',function(){ 
+	    document.getElementById('scale').value = 0
+    })
+    
+//UAS-------------->
+    document.getElementById('uas').addEventListener('click',function(){
+                tesbackup = new Array()
+                for (var c = 0; c < tes.length; c++) {
+                    temp = new Array()
+                    for (var d = 0; d < 4; d++) {
+                        temp.push(tes[c][d])
+                    }
+                    tesbackup.push(temp)
+                }
+                
+                var wnow = obj.width
+                var hnow = obj.height
+                for (var i = 0; i < tesbackup.length; i++) {
+                    x = obj.i2x(i)
+                    y = obj.i2y(i)
+                    
+                    //negatif:modul2
+                    if (x<wnow/2 && y<hnow/2) {
+                        posnow = obj.xy2i(wnow-x-1,y)
+                        tes[i][0] = (255-tesbackup[i][0])
+                        tes[i][1] = (255-tesbackup[i][1])
+                        tes[i][2] = (255-tesbackup[i][2])
+                        tes[i][3] = tesbackup[i][3]
+                    }
+
+                    //mean - modul 5 
+                    else if (x>wnow*1/2 && y<hnow/2) {
+                        filtersize = 11
+                            
+                            borderparam = (filtersize - 1)/2
+                            meandoubleparam = filtersize*filtersize
+                            
+                                xstart = obj.i2x(i) - borderparam
+                                xend = obj.i2x(i) + borderparam
+                                ystart = obj.i2y(i) - borderparam
+                                yend = obj.i2y(i) + borderparam
+                                red = 0
+                                green = 0
+                                blue = 0
+    
+                                for(var yc=ystart; yc<=yend; yc++){
+                                    for(var xc=xstart; xc<=xend; xc++){
+                                        if(yc>=0 && xc>0 && xc>wnow*1/2 && yc<hnow/2){
+                                            red += tesbackup[obj.xy2i(xc,yc)][0]
+                                            green += tesbackup[obj.xy2i(xc,yc)][1]
+                                            blue += tesbackup[obj.xy2i(xc,yc)][2]
+                                        }
+                                    }
+                                
+                                tes[i][0] = Math.floor(red/meandoubleparam)
+                                tes[i][1] = Math.floor(green/meandoubleparam)
+                                tes[i][2] = Math.floor(blue/meandoubleparam)
+                                }
+                    }
+
+                    //red:modul1
+                    else if (x<wnow/2 && y>hnow/2) {
+                        posnow = obj.xy2i(wnow-x-1,hnow-y-1)  
+
+                        tes[i][0] = (255 + tesbackup[i][0])
+                        tes[i][1] = (tesbackup[i][1])
+                        tes[i][2] = (tesbackup[i][2])
+                        tes[i][3] = tesbackup[i][3]
+                    }
+
+                    //vertikal:modul3
+                    else if (x>wnow/2 && y>hnow*1/2) {
+                    x=obj.i2x(i)
+                    y=obj.i2y(i)
+                    
+                    posnow=obj.xy2i(wnow-x-1, hnow-y-1)
+
+                        tes[i][0]=tesbackup[posnow][0]
+                        tes[i][1]=tesbackup[posnow][1]
+                        tes[i][2]=tesbackup[posnow][2]
+                        tes[i][3]=tesbackup[posnow][3]
+                    }                   
+                }
+                obj.array2canvas(tes)
+            })
+       
+
+    </script>
