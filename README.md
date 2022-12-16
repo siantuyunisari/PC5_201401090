@@ -24,13 +24,13 @@
 ![modul4 mean filter](https://user-images.githubusercontent.com/77237645/208045323-ab53aedc-c05f-4f64-976a-00ffa9e9d2f4.png)
 
 #### Modul 5
-![modul4 mean filter](https://user-images.githubusercontent.com/77237645/208045355-c13a92a1-0777-47b6-ad46-0f79a3b5e7d7.png)
+![modul5 prewitt](https://user-images.githubusercontent.com/77237645/208045827-9d5f2934-0a98-482c-8efc-fba9112d04f7.png)
 
 #### Modul 6
-![modul4 mean filter](https://user-images.githubusercontent.com/77237645/208045387-32273e0d-629e-4f0f-906a-4de7b7c695be.png)
+![modul6 robert](https://user-images.githubusercontent.com/77237645/208045869-0997a674-973e-495a-bc71-336d5ff41c32.png)
 
 #### Modul 7
-![modul4 mean filter](https://user-images.githubusercontent.com/77237645/208045411-e20e7707-5f3b-44a0-9285-eed267c732bc.png)
+![modul7 rotasi](https://user-images.githubusercontent.com/77237645/208045905-ed7875de-72fb-4464-8601-0767ad41eb3a.png)
 
 #### Modul 8
-![modul4 mean filter](https://user-images.githubusercontent.com/77237645/208045441-0c157656-0493-496e-aac1-0286c3b33c15.png)
+![modul8 scale](https://user-images.githubusercontent.com/77237645/208045947-4a444f0e-b0fc-4045-bc33-23ba6292a457.png)
