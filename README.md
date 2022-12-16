@@ -1,4 +1,4 @@
-#####Yunisa Sianturi (201401090)
+####Yunisa Sianturi (201401090)
 
 #### Tampilan Lengkap 
 ![ss UAS PC5 yunisa](https://user-images.githubusercontent.com/77237645/208037864-04beef6b-43bc-462b-a92d-184c1b478ca9.png)
