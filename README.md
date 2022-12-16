@@ -1,14 +1,14 @@
 # **Yunisa Sianturi | 201401090**
 
-> **Tampilan Lengkap**
+## > **Tampilan Lengkap**
 ![ss UAS PC5 yunisa](https://user-images.githubusercontent.com/77237645/208037864-04beef6b-43bc-462b-a92d-184c1b478ca9.png)
 
 
-> **UAS**
+## > **UAS**
 ![ss UAS](https://user-images.githubusercontent.com/77237645/208037786-4df0558d-c127-424b-a4a1-d3efe44694e9.png)
 
 
-> **UTS**
+## > **UTS**
 ![UTS no1](https://user-images.githubusercontent.com/77237645/208044900-23c34a45-62aa-4555-91ec-e020c33a2314.png)
 ![UTS no2](https://user-images.githubusercontent.com/77237645/208046172-c51288d6-de4d-4900-b893-73d37fcd70b2.png)
 ![UTS no3](https://user-images.githubusercontent.com/77237645/208046202-dc3f0b50-cd82-496b-b636-19021d59e575.png)
