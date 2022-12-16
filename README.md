@@ -3,13 +3,19 @@
 #### Tampilan Lengkap 
 ![ss UAS PC5 yunisa](https://user-images.githubusercontent.com/77237645/208037864-04beef6b-43bc-462b-a92d-184c1b478ca9.png)
 
+_______________________
+
 #### UAS 
 ![ss UAS](https://user-images.githubusercontent.com/77237645/208037786-4df0558d-c127-424b-a4a1-d3efe44694e9.png)
 
+_______________________
+
 #### UTS
 ![UTS no1](https://user-images.githubusercontent.com/77237645/208044900-23c34a45-62aa-4555-91ec-e020c33a2314.png)
-![UTS no1](https://user-images.githubusercontent.com/77237645/208044938-e2fd2feb-d3f9-43e2-b266-343654626beb.png)
-![UTS no1](https://user-images.githubusercontent.com/77237645/208044957-48ec1760-d0ae-4e95-bf15-85816d7eb8b6.png)
+![UTS no2](https://user-images.githubusercontent.com/77237645/208046172-c51288d6-de4d-4900-b893-73d37fcd70b2.png)
+![UTS no3](https://user-images.githubusercontent.com/77237645/208046202-dc3f0b50-cd82-496b-b636-19021d59e575.png)
+
+_______________________
 
 #### Modul 1
 ![modul1](https://user-images.githubusercontent.com/77237645/208045084-a16d67ec-a763-45bf-b4b3-795b063ed899.png)
